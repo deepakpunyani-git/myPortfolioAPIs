@@ -4,12 +4,13 @@ dotenv.config();
 
 const connectDB = require('./db');
 const PORT = process.env.PORT || 3000;
+const CLIENT = process.env.CLIENT;
 const app = express();
 const routes = require('./routes/index');
 const cors = require('cors');
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: CLIENT,
 }));
 app.use('/images', express.static('images'));
 
