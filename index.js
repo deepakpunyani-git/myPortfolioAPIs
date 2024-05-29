@@ -8,11 +8,14 @@ const CLIENT = process.env.CLIENT;
 const app = express();
 const routes = require('./routes/index');
 const cors = require('cors');
+const path = require('path');
 
 app.use(cors({
   origin: CLIENT,
 }));
-app.use('/images', express.static('images'));
+app.use('/images', express.static(path.join(__dirname, 'uploads')));
+
+// app.use('/images', express.static('images'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
