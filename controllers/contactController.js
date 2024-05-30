@@ -1,4 +1,7 @@
 const Contact = require('../models/contact');
+const dotenv = require('dotenv');
+dotenv.config();
+const nodemailer = require("nodemailer");
 
 const contactController = {
 
@@ -48,6 +51,41 @@ const contactController = {
         });
 
          await contact.save();
+
+         const mailOptions = {
+            to: process.env.email,
+            from: 'Deepak`s Portfolio <' + process.env.EMAIL_HOST + '>',
+            subject: 'Email From My Portfolio',
+            html: `<p>Name: <strong>${fullName}</strong></p><br>
+            <p>Email: <strong>${email}</strong></p><br>
+            <p>Phone Number: <strong>${phone}</strong></p><br>
+            <p>Message: <strong>${message}</strong></p><br>`,
+        };
+
+        // console.log(mailOptions);
+
+         // Create a transporter with AOL SMTP settings
+          const transporter = nodemailer.createTransport({
+            host: process.env.EMAIL_HOST,
+            port: process.env.EMAIL_PORT, 
+            secure: false,
+            debug: true, 
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASSWORD 
+            }
+          });
+
+          // Send email
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error('Error sending email:', error);
+            } else {
+                console.log('Email sent:', info.response);
+            }
+          });
+  
+
 
         res.json({ success: true, message: 'Message sent successfully' });
     } catch (error) {

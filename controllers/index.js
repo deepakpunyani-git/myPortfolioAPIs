@@ -13,9 +13,9 @@ const mainController = {
       const linksData = await Links.find().sort({ position: -1 }).select({ _id: 0 });
       const educationData = await Education.find().sort({ position: -1 }).select({ _id: 0 });
       const experienceData = await Experience.find().sort({ position: -1 }).select({ _id: 0 });
-      const skillsData = await Skills.find().sort({ position: -1 }).select({ _id: 0 });
-      const projectsData = await Projects.find().sort({ position: -1 }).select({ _id: 0 });
-      const awardsData = await Awards.find().sort({ position: -1 }).select({ _id: 0 });
+      const skillsData = await Skills.find().sort({ position: 1 }).select({ _id: 0 });
+      const projectsData = await Projects.find().sort({ position: 1 }).select({ _id: 0 });
+      const awardsData = await Awards.find().sort({ position: 1 }).select({ _id: 0 });
 
       res.json({
         about: aboutData,
